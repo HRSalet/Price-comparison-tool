@@ -1,0 +1,7 @@
+Library Requirements:
+
+serpapi
+google-search-result
+streamlit
+pandas
+matplotlib
