@@ -1,7 +1,7 @@
-Library Requirements:
-
-serpapi
-google-search-result
-streamlit
+google_search_results
 pandas
+serpapi
+streamlit
+google-serp-api
+googlesearch-python
 matplotlib
