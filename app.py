@@ -11,7 +11,7 @@ def compare(name):
     params = {
     "engine": "google_shopping",
     "q": name,
-    "api_key": "7b4f1c879e1ceea1cb33f35be6e42637a3c0f9e9687389c37d8a756708bd6348",
+    "api_key": "04de13f030079597572e63a7b2bbe0dcbd64d750817c2f6925215048a2679aa4",
     "gl" : "in"
     }
 
@@ -25,40 +25,40 @@ def compare(name):
  #header
 c1,c3 = st.columns(2)
 c1.image("e_pharmacy.png", width= 200)
-c3.header("E-Pharmacy Price compairsion system")
+c3.header("Price Comparsion System")
 
 # """--------------------------------------------------------------------------------------------------------------------------------------"""
-st.sidebar.title("Enter Name of Medicine:")
+st.sidebar.title("Enter Name of Product:")
 st.sidebar.markdown(" ")
 st.sidebar.markdown(" ")
 
-medicine_name=st.sidebar.text_input(
+product_name=st.sidebar.text_input(
         "Enter Name here 👇"
     )
 number=st.sidebar.text_input(
         "Enter Number of options here 👇"
     )
-med_name=[]
-med_price=[]
-if medicine_name is not None:
+prod_name=[]
+prod_price=[]
+if product_name is not None:
     if st.sidebar.button("show compair"):
 # """--------------------------------------------------------------------------------------------------------------------------------------"""
-        inline_shopping_results=compare(medicine_name)
+        inline_shopping_results=compare(product_name)
         st.sidebar.image(inline_shopping_results[0].get("thumbnail"))
-        lowest_price=float(inline_shopping_results[0].get("price")[1:])
+        lowest_price = float(inline_shopping_results[0].get("price").replace("₹","").replace(",",""))
         lowest_price_index=0
 # """--------------------------------------------------------------------------------------------------------------------------------------"""
         for i in range(int(number)):
             st.title(f"Option {i+1}")
             c1,c2 = st.columns(2)
-            curent_price=float(inline_shopping_results[i].get("price")[1:])
-            med_name.append(inline_shopping_results[i].get("source"))
-            med_price.append(float((inline_shopping_results[i].get("price"))[1:10]))
+            curent_price = float(inline_shopping_results[i].get("price").replace("₹","").replace(",",""))
+            prod_name.append(inline_shopping_results[i].get("source"))
+            prod_price.append(float(inline_shopping_results[i].get("price").replace("₹","").replace(",","")))
 
             c1.write("Company ")
             c2.write(inline_shopping_results[i].get("source"))
 
-            c1.write("Medicine Name")
+            c1.write("Product Name")
             c2.write((inline_shopping_results[i].get("title"))[0:40])
 
             print(curent_price)
@@ -98,11 +98,11 @@ if medicine_name is not None:
         """-----------------------------------"""
 
         #graph comrasion 
-        df=pd.DataFrame(med_price,med_name)
+        df=pd.DataFrame(prod_price,prod_name)
         st.title("Chart Comarasion : ")
         st.bar_chart(df)
         
         fig1, ax1 = plt.subplots()
-        ax1.pie(med_price, labels=med_name,shadow=True, startangle=90)
+        ax1.pie(prod_price, labels=prod_name,shadow=True, startangle=90)
         ax1.axis('equal') 
         st.pyplot(fig1)
