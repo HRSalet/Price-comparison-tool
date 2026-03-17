@@ -1,7 +1,7 @@
 google_search_results
 pandas
 serpapi
-streamlit
+streamlit==1.35.0
 google-serp-api
 googlesearch-python
 matplotlib
